@@ -34,10 +34,10 @@ class Data
 			return this->dia;
 		}
 		int getMes() {
-			return this->dia;
+			return this->mes;
 		}
 		int getAno() {
-			return this->dia;
+			return this->ano;
 		}
 		string getData()
         {
@@ -110,18 +110,15 @@ class Contato
 		Data getDtNasc(){
 			return dtnasc;
 		}
-		int idade(string nasc) {
-			int dianasc, mesnasc, anonasc;
-			int diahoje, meshoje, anohoje;
-			int idade;
-			
-			stringstream ss(nasc);
-			
-			char delimiter = '/';
-			ss >> dianasc >> delimiter >> mesnasc >> delimiter >> anonasc;
+		int idade(Data nasc) {
+			int dianasc = nasc.getDia();
+			int mesnasc = nasc.getMes();
+			int anonasc = nasc.getAno();
+
+			int diahoje, meshoje, anohoje, idade;
 			
 			time_t agora = time(0);
-			tm *ltm = localtime(&agora);
+			tm* ltm = localtime(&agora);
 			
 			diahoje = ltm->tm_mday;
 			meshoje = 1 + ltm->tm_mon;
@@ -129,20 +126,10 @@ class Contato
 			
 			//calcular idade
 			idade = anohoje - anonasc;
-			
-			if(meshoje == mesnasc)
+
+			if((meshoje == mesnasc && diahoje<dianasc) || meshoje<mesnasc)
 			{
-				if(diahoje < dianasc)
-				{
-					idade--;
-				}
-			}
-			else
-			{
-				if(meshoje < mesnasc)
-				{
-					idade--;
-				}
+				return --idade;
 			}
 			
 			return idade;
@@ -177,7 +164,7 @@ int main(int argc, char** argv)
 	
 	int telefone, dia, mes, ano, dialimite = 31;
 	bool valido;
-	string nome, email, dt;
+	string nome, email;
 
 	Contato* pessoas[5];
 
@@ -224,7 +211,7 @@ int main(int argc, char** argv)
 				dialimite--;
 				break;
 			case 2:
-				//ver se é ano bissexto
+				//ver se Ã© ano bissexto
 				if((ano % 4 ==0 && ano % 100 ==0) || (ano % 400 ==0))
 				{
 					dialimite = 29;
