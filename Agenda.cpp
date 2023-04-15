@@ -166,9 +166,9 @@ int main(int argc, char** argv)
 	bool valido;
 	string nome, email;
 
-	Contato* pessoas[5];
+	Contato* contatos[10];
 
-	for(int i=0;i<5;i++)
+	for(int i=0;i<10;i++)
 	{
 		cout << "Cadastro da "<< (i+1) <<"a. pessoa" << endl;
 		
@@ -235,7 +235,7 @@ int main(int argc, char** argv)
 		nasc->setMes(mes);
 		nasc->setAno(ano);
 		
-		pessoas[i] = new Contato(nome, email, telefone, nasc);
+		contatos[i] = new Contato(nome, email, telefone, nasc);
 		
 		cin.ignore();
 		
@@ -245,22 +245,22 @@ int main(int argc, char** argv)
 	
 	cout << "==================================" << endl;
 	
-	for(int i=0; i<5; i++)
+	for(int i=0; i<10; i++)
 	{
 		cout << endl;
 		
-		dt = pessoas[i]->getDtNasc();
+		dt = contatos[i]->getDtNasc();
 		
 		cout << "CONTATO " << (i+1) << endl;
-		cout << "Nome: " << pessoas[i]->getNome() << endl;
-		cout << "Telefone: " << pessoas[i]->getTelefone() << endl;
-		cout << "Email: " << pessoas[i]->getEmail() << endl;
-		cout << "Data de nasc.: " << pessoas[i]->getDtNasc() << endl;
-		cout << "Idade: " << pessoas[i]->idade(dt) << " anos." << endl;
+		cout << "Nome: " << contatos[i]->getNome() << endl;
+		cout << "Telefone: " << contatos[i]->getTelefone() << endl;
+		cout << "Email: " << contatos[i]->getEmail() << endl;
+		cout << "Data de nasc.: " << contatos[i]->getDtNasc() << endl;
+		cout << "Idade: " << contatos[i]->idade(dt) << " anos." << endl;
 		
 		cout << "----------------------------------" << endl;
 		
-		delete pessoas[i];
+		delete contatos[i];
 	}
 	
 	return 0;
